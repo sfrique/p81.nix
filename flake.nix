@@ -5,9 +5,29 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      package = pkgs.callPackage ./pkg.nix { };
-    in {
-      packages.${system}.p81 = package;
-      defaultPackage.x86_64-linux = package;
+    in
+    rec {
+      packages.${system} = {
+        perimeter81-unwrapped = pkgs.callPackage ./perimeter81.nix { };
+        perimeter81 = pkgs.callPackage ./fhsenv.nix { perimeter81-unwrapped = packages.${system}.perimeter81-unwrapped; };
+      };
+      defaultPackage.${system} = packages.${system}.perimeter81;
+
+      overlays = {
+        default = final: prev: {
+          perimeter81 = defaultPackage.${system};
+        };
+      };
+
+      nixosModules = {
+        perimeter81 = {
+          imports = [
+            ./module.nix
+          ];
+          nixpkgs.overlays = [
+            self.overlays.defaults
+          ];
+        };
+      };
     };
 }
