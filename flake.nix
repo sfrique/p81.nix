@@ -25,7 +25,7 @@
             ./module.nix
           ];
           nixpkgs.overlays = [
-            self.overlays.defaults
+            self.overlays.default
           ];
         };
       };
