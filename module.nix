@@ -19,8 +19,13 @@ in
 
       systemd.services.perimeter81helper = {
         description = "Perimeter81 Helper Daemon";
-        after = [ "network.target" ];
+        wants = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
+        after = [
+          "network-online.target"
+          "NetworkManager.service"
+          "systemd-resolved.service"
+        ];
 
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/p81-helper-daemon";
