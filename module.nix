@@ -21,7 +21,7 @@ in {
       "perimeter81-helper-daemon" = {
         description = "Perimeter81 Helper Daemon";
         wants = ["network.target"];
-        wantedBy = ["multi-user.target"];
+        wantedBy = [ ];
         requires = [
           "network-online.target"
         ];
