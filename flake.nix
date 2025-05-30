@@ -1,6 +1,6 @@
 {
   description = "Perimeter81 on Nix";
-  inputs = {nixpkgs = {url = "nixpkgs/nixos-24.05";};};
+  inputs = {nixpkgs = {url = "nixpkgs/nixos-unstable";};};
   outputs = {
     self,
     nixpkgs,
