@@ -35,4 +35,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
+  postFixup = ''
+    substituteInPlace $out/share/applications/perimeter81.desktop \
+      --replace-fail '/opt/Perimeter81/perimeter81 %U' 'perimeter81 %U'
+  '';
+
 }
